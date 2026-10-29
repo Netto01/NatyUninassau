@@ -337,16 +337,27 @@ figcaption {
    Controle Responsivo por Media Queries (Desktop vs Mobile / Telas Menores)
    ========================================================================== */
 
-/* Telas Desktop (> 860px): exibe o PDF real dentro do iframe */
-@media (min-width: 861px) {
-  .pages, 
-  .jump, 
-  .next { 
-    display: none !important; 
-  }
-  .viewer { 
-    display: block !important; 
-  }
+/* Modos de Exibição Controlados Dinamicamente */
+body.has-pdf-viewer .pages, 
+body.has-pdf-viewer .jump, 
+body.has-pdf-viewer .next { 
+  display: none !important; 
+}
+body.has-pdf-viewer .viewer { 
+  display: block !important; 
+}
+
+body.has-page-viewer .viewer { 
+  display: none !important; 
+}
+body.has-page-viewer .pages { 
+  display: flex !important; 
+}
+body.has-page-viewer .jump { 
+  display: flex !important; 
+}
+body.has-page-viewer .next { 
+  display: block !important; 
 }
 
 /* Telas Menores e Celulares (<= 860px): converte sidebar em barra horizontal e exibe imagens */
@@ -563,10 +574,19 @@ $('nav').innerHTML = BOOKS.map(b => `
   </a>`).join('');
 
 let observer;
+let activeBookKey = null;
+
+function canInlinePDF() {
+  const isSmallScreen = window.innerWidth <= 860;
+  const isMobileDevice = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+  const pdfSupported = ('pdfViewerEnabled' in navigator) ? navigator.pdfViewerEnabled : true;
+  return !isSmallScreen && !isMobileDevice && pdfSupported;
+}
 
 function show(key) {
   const i = Math.max(0, BOOKS.findIndex(b => b.key === key));
   const b = BOOKS[i];
+  activeBookKey = b.key;
   
   // Atualiza item ativo no nav
   document.querySelectorAll('#nav a').forEach(a => a.setAttribute('aria-current', a.dataset.key === b.key ? 'page' : 'false'));
@@ -575,21 +595,32 @@ function show(key) {
     cur.scrollIntoView({ block: 'nearest', inline: 'start', behavior: 'smooth' });
   }
 
-  // Atualiza URLs dos arquivos
+  // Atualiza URLs dos arquivos apenas nos botões de ação
   const pdf = 'pdf/' + b.file + '.pdf';
   $('open').href = pdf; 
   $('dl').href = pdf;
   $('dl').setAttribute('download', b.file + '.pdf');
 
-  // Atualiza iframe desktop
-  $('pdf').src = pdf + '#view=FitH';
+  // Controle inteligente do visualizador:
+  // NUNCA carrega o PDF no iframe em celular, tablet ou navegadores sem leitor inline nativo,
+  // pois isso forçava o download automático indesejado assim que o usuário clicava no ícone.
+  const useIframe = canInlinePDF();
+  document.body.classList.toggle('has-pdf-viewer', useIframe);
+  document.body.classList.toggle('has-page-viewer', !useIframe);
+
+  if (useIframe) {
+    $('pdf').src = pdf + '#view=FitH';
+  } else {
+    // Remove o src do iframe para evitar qualquer requisição de download em background
+    $('pdf').removeAttribute('src');
+  }
 
   // Atualiza textos
   $('kind').textContent = b.kind;
   $('title').textContent = b.title;
   document.title = b.title + ' • Cartilhas UNINASSAU';
 
-  // Sempre gera o conteúdo das páginas mobile (assim funciona em qualquer redimensionamento)
+  // Sempre gera o conteúdo das páginas em imagem de alta definição
   $('pages').innerHTML = Array.from({ length: PAGES }, (_, n) => `
     <figure id="p${n + 1}">
       <img src="pages/${b.file}-${n + 1}.jpg" alt="${b.title}, página ${n + 1}" width="910" height="1287" loading="${n < 2 ? 'eager' : 'lazy'}">
@@ -628,13 +659,34 @@ function show(key) {
       }
     });
   }, { 
-    root: window.innerWidth > 860 ? $('main') : null,
+    root: useIframe ? $('main') : null,
     rootMargin: '-30% 0px -40% 0px' 
   });
 
   document.querySelectorAll('#pages figure').forEach(f => observer.observe(f));
   document.querySelector('#jump button')?.classList.add('on');
 }
+
+// Previne qualquer comportamento inesperado no clique dos links da sidebar
+$('nav').addEventListener('click', e => {
+  const link = e.target.closest('a');
+  if (!link) return;
+  const key = link.dataset.key;
+  if (key) {
+    location.hash = key;
+  }
+});
+
+// Reavalia modo de visualização caso a janela mude de tamanho
+window.addEventListener('resize', () => {
+  if (activeBookKey) {
+    const useIframe = canInlinePDF();
+    const isCurrentlyIframe = document.body.classList.contains('has-pdf-viewer');
+    if (useIframe !== isCurrentlyIframe) {
+      show(activeBookKey);
+    }
+  }
+});
 
 // Clique no botão de salto de página
 $('jump').addEventListener('click', e => {
