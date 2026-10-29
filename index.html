@@ -1,0 +1,654 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cartilhas UNINASSAU Palmas</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+html { -webkit-text-size-adjust: 100%; height: 100%; } 
+* { box-sizing: border-box; } 
+body { margin: 0; height: 100%; }
+
+:root {
+  --side: #12305e; --side-2: #0c2549; --side-ink: #ffffff; --side-muted: #a9bbd9; --side-line: rgba(255,255,255,.12);
+  --red: #e0262c; --yellow: #f5c518;
+  --bg: #e9eef7; --surface: #ffffff; --ink: #14213d; --muted: #5a6680; --line: #d5deec; --title: #1e4678;
+  --font: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) { 
+  :root:not([data-theme="light"]) {
+    --bg: #0b1424; --surface: #142238; --ink: #eef2fa; --muted: #a3b0c8; --line: #24375a; --title: #9cbcf0; 
+    color-scheme: dark;
+  } 
+}
+:root[data-theme="dark"] { 
+  --bg: #0b1424; --surface: #142238; --ink: #eef2fa; --muted: #a3b0c8; --line: #24375a; --title: #9cbcf0; 
+  color-scheme: dark; 
+}
+
+body { 
+  background: var(--bg); 
+  color: var(--ink); 
+  font-family: var(--font); 
+  font-size: 15px; 
+  line-height: 1.5; 
+  overflow: hidden;
+}
+
+.app { 
+  height: 100%; 
+  height: 100dvh;
+  display: grid; 
+  grid-template-columns: 320px minmax(0, 1fr); 
+}
+
+/* ---------- sidebar (desktop) ---------- */
+aside { 
+  background: var(--side); 
+  color: var(--side-ink); 
+  display: flex; 
+  flex-direction: column; 
+  min-height: 0; 
+  border-right: 5px solid var(--red);
+  padding-left: max(0px, env(safe-area-inset-left, 0px)); 
+  z-index: 10;
+}
+
+.brand { 
+  padding: 26px 22px 20px; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 14px; 
+  border-bottom: 1px solid var(--side-line); 
+}
+.logo { display: flex; align-items: center; gap: 12px; }
+.logo img { width: 46px; height: auto; flex-shrink: 0; }
+.logo b { display: block; font-size: 21px; letter-spacing: .01em; line-height: 1.1; }
+.logo span { font-size: 10px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--yellow); }
+.brand h1 { margin: 0; font-size: 19px; line-height: 1.3; font-weight: 700; text-wrap: balance; }
+.brand h1 em { font-style: normal; color: var(--yellow); }
+.brand p { margin: 0; font-size: 12.5px; color: var(--side-muted); }
+
+.label { 
+  padding: 18px 22px 8px; 
+  font-size: 10.5px; 
+  font-weight: 700; 
+  letter-spacing: .16em; 
+  text-transform: uppercase; 
+  color: var(--side-muted); 
+}
+
+nav { 
+  flex: 1; 
+  min-height: 0; 
+  overflow-y: auto; 
+  padding: 0 12px 16px; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 6px; 
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,.2) transparent;
+}
+nav::-webkit-scrollbar { width: 5px; height: 5px; }
+nav::-webkit-scrollbar-thumb { background: rgba(255,255,255,.2); border-radius: 4px; }
+
+nav a { 
+  display: grid; 
+  grid-template-columns: 46px minmax(0,1fr); 
+  gap: 12px; 
+  align-items: center; 
+  padding: 9px 10px; 
+  border-radius: 10px; 
+  color: var(--side-ink); 
+  text-decoration: none; 
+  border-left: 4px solid transparent; 
+  transition: background .15s ease, border-color .15s ease;
+}
+nav a:hover { background: rgba(255,255,255,.08); }
+nav a:focus-visible { outline: 3px solid var(--yellow); outline-offset: -3px; }
+nav a[aria-current="page"] { background: var(--side-2); border-left-color: var(--yellow); }
+nav img { width: 46px; aspect-ratio: 595/842; object-fit: cover; border-radius: 4px; display: block; background: rgba(255,255,255,.1); }
+nav strong { display: block; font-size: 13.5px; font-weight: 600; line-height: 1.3; }
+nav small { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--side-muted); margin-top: 3px; }
+
+.new { 
+  background: var(--yellow); 
+  color: var(--side-2); 
+  font-weight: 700; 
+  font-size: 9.5px; 
+  letter-spacing: .08em; 
+  padding: 1px 7px; 
+  border-radius: 99px; 
+}
+
+.sidefoot { 
+  padding: 14px 22px 18px; 
+  border-top: 1px solid var(--side-line); 
+  font-size: 11px; 
+  color: var(--side-muted); 
+  line-height: 1.5; 
+}
+
+/* ---------- reading pane ---------- */
+main { 
+  min-width: 0; 
+  min-height: 0; 
+  overflow-y: auto; 
+  padding-right: max(0px, env(safe-area-inset-right, 0px)); 
+  display: flex;
+  flex-direction: column;
+}
+
+.bar { 
+  position: sticky; 
+  top: 0; 
+  z-index: 20; 
+  background: var(--surface); 
+  border-bottom: 1px solid var(--line); 
+  padding: 14px 28px; 
+  display: flex; 
+  flex-wrap: wrap; 
+  align-items: center; 
+  justify-content: space-between;
+  gap: 12px 20px; 
+  box-shadow: 0 1px 3px rgba(0,0,0,.03);
+}
+
+.bar > div:first-child { 
+  min-width: 0; 
+  flex: 1 1 240px; 
+}
+
+.bar .kind { 
+  font-size: 11px; 
+  font-weight: 700; 
+  letter-spacing: .14em; 
+  text-transform: uppercase; 
+  color: var(--red); 
+}
+
+.bar h2 { 
+  margin: 0; 
+  font-size: 18px; 
+  line-height: 1.3; 
+  color: var(--title); 
+  text-wrap: balance; 
+}
+
+.jump { 
+  display: flex; 
+  gap: 6px; 
+  flex-wrap: wrap; 
+  align-items: center;
+}
+
+.jump button { 
+  font: inherit; 
+  font-size: 12.5px; 
+  font-weight: 600; 
+  width: 32px; 
+  height: 32px; 
+  border-radius: 8px; 
+  border: 1px solid var(--line); 
+  background: var(--surface); 
+  color: var(--ink); 
+  cursor: pointer; 
+  font-variant-numeric: tabular-nums; 
+  transition: all .15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jump button.on { 
+  background: var(--title); 
+  border-color: var(--title); 
+  color: #ffffff; 
+}
+
+.jump button:focus-visible { 
+  outline: 3px solid var(--yellow); 
+  outline-offset: 2px; 
+}
+
+.acts { 
+  display: flex; 
+  gap: 8px; 
+  align-items: center;
+}
+
+.acts a { 
+  font-size: 13px; 
+  font-weight: 600; 
+  text-decoration: none; 
+  padding: 7px 14px; 
+  border-radius: 8px; 
+  background: var(--red); 
+  color: #fff; 
+  transition: opacity .15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.acts a:hover { opacity: .9; }
+.acts a + a { 
+  background: var(--surface); 
+  color: var(--ink); 
+  border: 1px solid var(--line); 
+}
+.acts a:focus-visible { 
+  outline: 3px solid var(--yellow); 
+  outline-offset: 2px; 
+}
+
+/* Desktop: iframe visualizer */
+.viewer { 
+  flex: 1;
+  padding: 20px 28px; 
+  min-height: 540px; 
+}
+
+.viewer iframe { 
+  width: 100%; 
+  height: 100%; 
+  border: 0; 
+  border-radius: 8px; 
+  background: #525659; 
+  box-shadow: 0 8px 24px rgba(10,30,70,.12); 
+  display: block;
+}
+
+/* Mobile & Touch: visualização de páginas contínuas */
+.pages { 
+  max-width: 820px; 
+  width: 100%;
+  margin: 0 auto; 
+  padding: 24px 28px 20px; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 22px; 
+}
+
+figure { 
+  margin: 0; 
+  scroll-margin-top: 100px; 
+}
+
+figure img { 
+  width: 100%; 
+  max-width: 100%;
+  height: auto; 
+  display: block; 
+  border-radius: 6px; 
+  background: #fff; 
+  box-shadow: 0 1px 3px rgba(10,30,70,.12), 0 8px 24px rgba(10,30,70,.10); 
+}
+
+figcaption { 
+  text-align: center; 
+  font-size: 12px; 
+  color: var(--muted); 
+  margin-top: 8px; 
+  font-variant-numeric: tabular-nums; 
+}
+
+.next { 
+  max-width: 820px; 
+  width: 100%;
+  margin: 0 auto 36px; 
+  padding: 0 28px; 
+}
+
+.next a { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  gap: 12px; 
+  background: var(--surface); 
+  border: 1px solid var(--line); 
+  border-radius: 12px; 
+  padding: 16px 18px; 
+  text-decoration: none; 
+  color: var(--ink); 
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.next a:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(10,30,70,.08);
+}
+.next a span { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.next a strong { display: block; color: var(--title); font-size: 15px; }
+.next a b { font-size: 20px; color: var(--red); }
+.next a:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; }
+
+.note { 
+  max-width: 820px; 
+  margin: 0 auto 32px; 
+  padding: 0 28px; 
+  font-size: 11.5px; 
+  color: var(--muted); 
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   Controle Responsivo por Media Queries (Desktop vs Mobile / Telas Menores)
+   ========================================================================== */
+
+/* Telas Desktop (> 860px): exibe o PDF real dentro do iframe */
+@media (min-width: 861px) {
+  .pages, 
+  .jump, 
+  .next { 
+    display: none !important; 
+  }
+  .viewer { 
+    display: block !important; 
+  }
+}
+
+/* Telas Menores e Celulares (<= 860px): converte sidebar em barra horizontal e exibe imagens */
+@media (max-width: 860px) {
+  body { 
+    overflow-y: auto; 
+    overflow-x: hidden;
+  }
+  
+  .app { 
+    display: flex; 
+    flex-direction: column; 
+    height: auto; 
+    min-height: 100vh; 
+    min-height: 100dvh;
+  }
+  
+  aside { 
+    min-width: 0; 
+    width: 100%;
+    flex: none;
+    border-right: 0; 
+    border-bottom: 4px solid var(--red); 
+    padding-right: max(0px, env(safe-area-inset-right, 0px)); 
+    position: sticky;
+    top: 0;
+    z-index: 30;
+  }
+  
+  .brand { 
+    padding: 12px max(14px, env(safe-area-inset-left, 0px)) 8px; 
+    border-bottom: 0; 
+    flex-direction: row; 
+    align-items: center; 
+    justify-content: space-between; 
+    gap: 10px; 
+  }
+  .logo img { width: 34px; } 
+  .logo b { font-size: 16px; }
+  .logo span { font-size: 9px; }
+  .brand h1 { font-size: 12.5px; text-align: right; max-width: 160px; line-height: 1.25; } 
+  .brand p, .label, .sidefoot { display: none; }
+  
+  nav { 
+    flex-direction: row; 
+    overflow-x: auto; 
+    overflow-y: hidden; 
+    padding: 2px max(14px, env(safe-area-inset-left, 0px)) 10px; 
+    gap: 8px; 
+    scroll-snap-type: x proximity; 
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  nav::-webkit-scrollbar { display: none; }
+  
+  nav a { 
+    flex: none; 
+    width: 210px; 
+    grid-template-columns: 36px minmax(0,1fr); 
+    gap: 9px; 
+    padding: 7px 9px; 
+    border-left: 0; 
+    border-bottom: 3px solid transparent; 
+    background: rgba(255,255,255,.07); 
+    scroll-snap-align: start; 
+  }
+  nav a[aria-current="page"] { 
+    border-bottom-color: var(--yellow); 
+    background: var(--side-2);
+  }
+  nav img { width: 36px; } 
+  nav strong { font-size: 12px; }
+  nav small { font-size: 10px; }
+  
+  main { 
+    flex: 1;
+    overflow-y: visible;
+    padding-right: 0; 
+  }
+  
+  /* Sticky bar abaixo do cabeçalho */
+  .bar { 
+    position: sticky; 
+    top: 0; /* Se o aside rolar, a bar fixa no topo */
+    z-index: 25;
+    padding: 10px max(14px, env(safe-area-inset-right, 0px)) 10px max(14px, env(safe-area-inset-left, 0px)); 
+    gap: 8px 12px;
+  }
+  .bar > div:first-child {
+    flex: 1 1 180px;
+  }
+  .bar .kind { font-size: 10px; }
+  .bar h2 { font-size: 15px; }
+  
+  .jump { 
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    gap: 5px;
+    padding-top: 4px;
+    border-top: 1px solid var(--line);
+    margin-top: 2px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .jump::-webkit-scrollbar { display: none; }
+  .jump button { 
+    width: 32px; 
+    height: 32px; 
+    font-size: 12px; 
+    flex-shrink: 0;
+  }
+  
+  .acts {
+    flex-shrink: 0;
+  }
+  .acts a {
+    font-size: 12px;
+    padding: 6px 11px;
+    white-space: nowrap;
+  }
+  
+  .viewer { 
+    display: none !important; 
+  }
+  .pages, .next, .note { 
+    padding-left: max(14px, env(safe-area-inset-left, 0px)); 
+    padding-right: max(14px, env(safe-area-inset-right, 0px)); 
+  }
+  .pages { 
+    padding-top: 16px; 
+    gap: 16px; 
+    display: flex !important;
+  }
+  .next { 
+    display: block !important; 
+  }
+}
+
+/* Telas Muito Pequenas (< 420px) */
+@media (max-width: 420px) {
+  .brand h1 { display: none; }
+  .logo b { font-size: 15px; }
+  nav a { width: 185px; }
+  .bar h2 { font-size: 13.5px; }
+  .acts a { font-size: 11px; padding: 5px 8px; }
+  .jump button { width: 28px; height: 28px; font-size: 11px; }
+}
+
+@media (prefers-reduced-motion: no-preference) { 
+  html, main { scroll-behavior: smooth; } 
+}
+</style>
+
+</head>
+<body>
+<div class="app">
+  <aside>
+    <div class="brand">
+      <div class="logo">
+        <img src="img/crest.png" alt="Brasão UNINASSAU">
+        <div><b>UNINASSAU</b><span>Palmas - TO • Direito</span></div>
+      </div>
+      <h1>Cartilhas de <em>orientação jurídica</em></h1>
+      <p>Para motoboys, entregadores e motoristas de aplicativo.</p>
+    </div>
+    <div class="label">Escolha a cartilha</div>
+    <nav id="nav" aria-label="Cartilhas"></nav>
+    <div class="sidefoot">Projeto de Extensão • APIEX IV • 8º A de Direito. Orientação: Prof. Geraldo Alves Lima.</div>
+  </aside>
+
+  <main id="main">
+    <div class="bar">
+      <div>
+        <div class="kind" id="kind"></div>
+        <h2 id="title"></h2>
+      </div>
+      <div class="acts">
+        <a id="open" target="_blank" rel="noopener">Abrir PDF</a>
+        <a id="dl" download>Baixar</a>
+      </div>
+      <div class="jump" id="jump" aria-label="Ir para a página"></div>
+    </div>
+    
+    <!-- Visualizador PDF (Desktop) -->
+    <div class="viewer" id="viewer">
+      <iframe id="pdf" title="Cartilha em PDF"></iframe>
+    </div>
+    
+    <!-- Páginas em Imagem Contínua (Mobile/Tablet) -->
+    <div class="pages" id="pages"></div>
+    <div class="next" id="next"></div>
+    
+    <p class="note">Material informativo de extensão universitária, elaborado por discentes do curso de Direito (APIEX IV). Não substitui a orientação de um advogado ou defensor para o seu caso.</p>
+  </main>
+</div>
+
+<script>
+const BOOKS = [
+  { key: 'motorista-de-app', file: 'Cartilha_Motorista_de_App_Palmas_Tocantins_UNINASSAU_v1', title: 'Motorista de app: a lei de Palmas e do Tocantins', kind: 'Motoristas de app', isNew: true },
+  { key: 'entregador', file: 'Cartilha_Beneficios_Entregadores_UNINASSAU_v1', title: 'Entregador: benefícios das plataformas', kind: 'Entregadores', isNew: true },
+  { key: 'motoboy-direitos', file: 'Cartilha_Estrada_Segura_UNINASSAU_v3', title: 'Motoboy, conheça os seus direitos', kind: 'Motoboys' },
+  { key: 'passo-a-passo', file: 'Cartilha_Passo_a_Passo_UNINASSAU_v3', title: 'Do acidente ao benefício: passo a passo', kind: 'Motoboys' },
+  { key: 'bate-papo', file: 'Cartilha_Bate_Papo_de_Esquina_UNINASSAU_v3', title: 'Bate-papo de esquina', kind: 'Motoboys • quadrinhos' },
+];
+const PAGES = 7;
+const $ = id => document.getElementById(id);
+
+// Renderiza a lista de navegação
+$('nav').innerHTML = BOOKS.map(b => `
+  <a href="#${b.key}" data-key="${b.key}">
+    <img src="img/${b.file}.png" alt="" loading="lazy">
+    <span><strong>${b.title}</strong><small>${b.kind}${b.isNew ? ' <span class="new">NOVA</span>' : ''}</small></span>
+  </a>`).join('');
+
+let observer;
+
+function show(key) {
+  const i = Math.max(0, BOOKS.findIndex(b => b.key === key));
+  const b = BOOKS[i];
+  
+  // Atualiza item ativo no nav
+  document.querySelectorAll('#nav a').forEach(a => a.setAttribute('aria-current', a.dataset.key === b.key ? 'page' : 'false'));
+  const cur = document.querySelector('#nav a[aria-current="page"]');
+  if (cur && window.matchMedia('(max-width: 860px)').matches) {
+    cur.scrollIntoView({ block: 'nearest', inline: 'start', behavior: 'smooth' });
+  }
+
+  // Atualiza URLs dos arquivos
+  const pdf = 'pdf/' + b.file + '.pdf';
+  $('open').href = pdf; 
+  $('dl').href = pdf;
+  $('dl').setAttribute('download', b.file + '.pdf');
+
+  // Atualiza iframe desktop
+  $('pdf').src = pdf + '#view=FitH';
+
+  // Atualiza textos
+  $('kind').textContent = b.kind;
+  $('title').textContent = b.title;
+  document.title = b.title + ' • Cartilhas UNINASSAU';
+
+  // Sempre gera o conteúdo das páginas mobile (assim funciona em qualquer redimensionamento)
+  $('pages').innerHTML = Array.from({ length: PAGES }, (_, n) => `
+    <figure id="p${n + 1}">
+      <img src="pages/${b.file}-${n + 1}.jpg" alt="${b.title}, página ${n + 1}" width="910" height="1287" loading="${n < 2 ? 'eager' : 'lazy'}">
+      <figcaption>Página ${n + 1} de ${PAGES}</figcaption>
+    </figure>`).join('');
+
+  // Botões de paginação jump
+  $('jump').innerHTML = Array.from({ length: PAGES }, (_, n) => `
+    <button type="button" data-p="${n + 1}" aria-label="Página ${n + 1}">${n + 1}</button>
+  `).join('');
+
+  // Próxima cartilha
+  const nb = BOOKS[(i + 1) % BOOKS.length];
+  $('next').innerHTML = `
+    <a href="#${nb.key}">
+      <div>
+        <span>Próxima cartilha</span>
+        <strong>${nb.title}</strong>
+      </div>
+      <b aria-hidden="true">→</b>
+    </a>`;
+
+  // Reseta scroll
+  $('main').scrollTop = 0;
+  window.scrollTo(0, 0);
+
+  // Observador de interseção para ativar botão da página visível
+  if (observer) observer.disconnect();
+  observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const pageNum = entry.target.id.slice(1);
+        document.querySelectorAll('#jump button').forEach(btn => {
+          btn.classList.toggle('on', btn.dataset.p === pageNum);
+        });
+      }
+    });
+  }, { 
+    root: window.innerWidth > 860 ? $('main') : null,
+    rootMargin: '-30% 0px -40% 0px' 
+  });
+
+  document.querySelectorAll('#pages figure').forEach(f => observer.observe(f));
+  document.querySelector('#jump button')?.classList.add('on');
+}
+
+// Clique no botão de salto de página
+$('jump').addEventListener('click', e => {
+  const btn = e.target.closest('button'); 
+  if (!btn) return;
+  const target = document.getElementById('p' + btn.dataset.p);
+  if (target) {
+    target.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  }
+});
+
+// Suporte a hash e carregamento inicial
+window.addEventListener('hashchange', () => show(location.hash.slice(1)));
+show(location.hash.slice(1));
+</script>
+</body>
+</html>
