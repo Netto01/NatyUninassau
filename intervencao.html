@@ -1,0 +1,743 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Registros da Intervenção • Cartilhas UNINASSAU Palmas</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+<style>
+html { -webkit-text-size-adjust: 100%; height: 100%; }
+* { box-sizing: border-box; }
+body { margin: 0; height: 100%; }
+
+:root {
+  --side: #12305e; --side-2: #0c2549; --side-ink: #ffffff; --side-muted: #a9bbd9; --side-line: rgba(255,255,255,.12);
+  --red: #e0262c; --yellow: #f5c518;
+  --bg: #e9eef7; --surface: #ffffff; --ink: #14213d; --muted: #5a6680; --line: #d5deec; --title: #1e4678;
+  --font: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b1424; --surface: #142238; --ink: #eef2fa; --muted: #a3b0c8; --line: #24375a; --title: #9cbcf0;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0b1424; --surface: #142238; --ink: #eef2fa; --muted: #a3b0c8; --line: #24375a; --title: #9cbcf0;
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.5;
+  overflow: hidden;
+}
+
+.app {
+  height: 100%;
+  height: 100dvh;
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+}
+
+/* ---------- sidebar ---------- */
+aside {
+  background: var(--side);
+  color: var(--side-ink);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  border-right: 5px solid var(--red);
+  padding-left: max(0px, env(safe-area-inset-left, 0px));
+  z-index: 10;
+}
+
+.brand {
+  padding: 26px 22px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border-bottom: 1px solid var(--side-line);
+}
+.logo { display: flex; align-items: center; gap: 12px; }
+.logo img { width: 46px; height: auto; flex-shrink: 0; }
+.logo b { display: block; font-size: 21px; letter-spacing: .01em; line-height: 1.1; }
+.logo span { font-size: 10px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--yellow); }
+.brand h1 { margin: 0; font-size: 19px; line-height: 1.3; font-weight: 700; text-wrap: balance; }
+.brand h1 em { font-style: normal; color: var(--yellow); }
+.brand p { margin: 0; font-size: 12.5px; color: var(--side-muted); }
+
+.label {
+  padding: 18px 22px 8px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--side-muted);
+}
+
+.side-action {
+  padding: 0 12px 6px;
+}
+
+.action-link {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 11px 12px;
+  border-radius: 10px;
+  background: var(--side-2);
+  border: 1px solid rgba(245, 197, 24, 0.45);
+  border-left: 4px solid var(--yellow);
+  color: var(--side-ink);
+  text-decoration: none;
+}
+.action-link:focus-visible {
+  outline: 3px solid var(--yellow);
+  outline-offset: -3px;
+}
+.action-badge {
+  align-self: flex-start;
+  background: var(--yellow);
+  color: var(--side-2);
+  font-weight: 700;
+  font-size: 9.5px;
+  letter-spacing: .08em;
+  padding: 1px 7px;
+  border-radius: 99px;
+}
+.action-link strong { font-size: 13.5px; font-weight: 600; line-height: 1.3; }
+.action-link small { font-size: 11px; color: var(--side-muted); }
+
+nav {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 0 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,.2) transparent;
+}
+nav::-webkit-scrollbar { width: 5px; height: 5px; }
+nav::-webkit-scrollbar-thumb { background: rgba(255,255,255,.2); border-radius: 4px; }
+
+nav a {
+  display: grid;
+  grid-template-columns: 46px minmax(0,1fr);
+  gap: 12px;
+  align-items: center;
+  padding: 9px 10px;
+  border-radius: 10px;
+  color: var(--side-ink);
+  text-decoration: none;
+  border-left: 4px solid transparent;
+  transition: background .15s ease, border-color .15s ease;
+}
+nav a:hover { background: rgba(255,255,255,.08); }
+nav a:focus-visible { outline: 3px solid var(--yellow); outline-offset: -3px; }
+nav img { width: 46px; aspect-ratio: 595/842; object-fit: cover; border-radius: 4px; display: block; background: rgba(255,255,255,.1); }
+nav strong { display: block; font-size: 13.5px; font-weight: 600; line-height: 1.3; }
+nav small { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--side-muted); margin-top: 3px; }
+
+.new {
+  background: var(--yellow);
+  color: var(--side-2);
+  font-weight: 700;
+  font-size: 9.5px;
+  letter-spacing: .08em;
+  padding: 1px 7px;
+  border-radius: 99px;
+}
+
+.sidefoot {
+  padding: 14px 22px 18px;
+  border-top: 1px solid var(--side-line);
+  font-size: 11px;
+  color: var(--side-muted);
+  line-height: 1.5;
+}
+
+/* ---------- main content ---------- */
+main {
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: max(0px, env(safe-area-inset-right, 0px));
+  display: flex;
+  flex-direction: column;
+}
+
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  padding: 14px 28px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.03);
+}
+.bar > div:first-child { min-width: 0; flex: 1 1 240px; }
+.bar .kind {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+.bar h2 {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.3;
+  color: var(--title);
+  text-wrap: balance;
+}
+
+.acts { display: flex; gap: 8px; align-items: center; }
+.acts a {
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 7px 14px;
+  border-radius: 8px;
+  background: var(--red);
+  color: #fff;
+  transition: opacity .15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.acts a:hover { opacity: .9; }
+.acts a:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; }
+
+.content {
+  max-width: 1080px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 24px 28px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.intro {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--red);
+  border-radius: 12px;
+  padding: 18px 20px;
+  box-shadow: 0 2px 10px rgba(10,30,70,.05);
+}
+.intro p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--ink);
+  line-height: 1.65;
+}
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.section-head h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--title);
+}
+.section-head span {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ---------- photo gallery ---------- */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.photo-card {
+  margin: 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(10,30,70,.06);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.photo-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(10,30,70,.12);
+}
+
+.photo-btn {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: #0c2549;
+  cursor: zoom-in;
+  position: relative;
+  overflow: hidden;
+}
+.photo-btn:focus-visible {
+  outline: 3px solid var(--yellow);
+  outline-offset: -3px;
+}
+.photo-btn img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  transition: transform .25s ease;
+}
+.photo-card:hover .photo-btn img {
+  transform: scale(1.02);
+}
+
+.zoom-pill {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  background: rgba(12, 37, 73, 0.84);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 99px;
+  border: 1px solid rgba(255,255,255,.22);
+  pointer-events: none;
+}
+
+.photo-card figcaption {
+  padding: 13px 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.photo-card figcaption strong {
+  font-size: 14.5px;
+  color: var(--title);
+  line-height: 1.3;
+}
+.photo-card figcaption span {
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+/* ---------- videos ---------- */
+.videos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.video-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(10,30,70,.06);
+  display: flex;
+  flex-direction: column;
+}
+.video-card video {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background: #081426;
+  display: block;
+  object-fit: contain;
+}
+.video-meta {
+  padding: 13px 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.video-meta strong {
+  font-size: 14.5px;
+  color: var(--title);
+}
+.video-meta span {
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.note {
+  max-width: 1080px;
+  width: 100%;
+  margin: 8px auto 32px;
+  padding: 0 28px;
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ---------- lightbox ---------- */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(6, 15, 32, 0.92);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.lightbox.open {
+  display: flex;
+}
+.lightbox-inner {
+  max-width: 1100px;
+  width: 100%;
+  max-height: 92dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.lightbox-inner img {
+  max-width: 100%;
+  max-height: calc(92dvh - 80px);
+  width: auto;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 12px 40px rgba(0,0,0,.5);
+}
+.lightbox-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: #fff;
+}
+.lightbox-caption strong { display: block; font-size: 15px; }
+.lightbox-caption span { font-size: 12.5px; color: #c7d4eb; }
+.lightbox-controls { display: flex; gap: 8px; flex-shrink: 0; }
+.lightbox-controls button {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 7px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,.25);
+  background: rgba(255,255,255,.12);
+  color: #fff;
+  cursor: pointer;
+}
+.lightbox-controls button:hover { background: rgba(255,255,255,.22); }
+.lightbox-controls button:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 860px) {
+  body {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .app {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+  aside {
+    width: 100%;
+    flex: none;
+    border-right: 0;
+    border-bottom: 4px solid var(--red);
+    padding-right: max(0px, env(safe-area-inset-right, 0px));
+    position: sticky;
+    top: 0;
+    z-index: 30;
+  }
+  .brand {
+    padding: 12px max(14px, env(safe-area-inset-left, 0px)) 8px;
+    border-bottom: 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .logo img { width: 34px; }
+  .logo b { font-size: 16px; }
+  .logo span { font-size: 9px; }
+  .brand h1 { font-size: 12.5px; text-align: right; max-width: 160px; line-height: 1.25; }
+  .brand p, .label, .sidefoot { display: none; }
+
+  .side-action {
+    padding: 0 max(14px, env(safe-area-inset-left, 0px)) 8px;
+  }
+  .action-link {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 12px;
+  }
+  .action-link small { display: none; }
+  .action-link strong { font-size: 12.5px; }
+
+  nav {
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 2px max(14px, env(safe-area-inset-left, 0px)) 10px;
+    gap: 8px;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  nav::-webkit-scrollbar { display: none; }
+  nav a {
+    flex: none;
+    width: 210px;
+    grid-template-columns: 36px minmax(0,1fr);
+    gap: 9px;
+    padding: 7px 9px;
+    border-left: 0;
+    border-bottom: 3px solid transparent;
+    background: rgba(255,255,255,.07);
+    scroll-snap-align: start;
+  }
+  nav img { width: 36px; }
+  nav strong { font-size: 12px; }
+  nav small { font-size: 10px; }
+
+  main { flex: 1; overflow-y: visible; padding-right: 0; }
+  .bar {
+    padding: 10px max(14px, env(safe-area-inset-right, 0px)) 10px max(14px, env(safe-area-inset-left, 0px));
+    gap: 8px 12px;
+  }
+  .bar .kind { font-size: 10px; }
+  .bar h2 { font-size: 15px; }
+  .acts a { font-size: 12px; padding: 6px 11px; white-space: nowrap; }
+
+  .content, .note {
+    padding-left: max(14px, env(safe-area-inset-left, 0px));
+    padding-right: max(14px, env(safe-area-inset-right, 0px));
+  }
+  .gallery, .videos {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 420px) {
+  .brand h1 { display: none; }
+  .logo b { font-size: 15px; }
+  nav a { width: 185px; }
+  .bar h2 { font-size: 13.5px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html, main { scroll-behavior: smooth; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside>
+    <div class="brand">
+      <div class="logo">
+        <img src="img/crest.png" alt="Brasão UNINASSAU">
+        <div><b>UNINASSAU</b><span>Palmas - TO • Direito</span></div>
+      </div>
+      <h1>Cartilhas de <em>orientação jurídica</em></h1>
+      <p>Para motoboys, entregadores e motoristas de aplicativo.</p>
+    </div>
+
+    <div class="label">Ação em campo</div>
+    <div class="side-action">
+      <a href="intervencao.html" class="action-link" aria-current="page">
+        <span class="action-badge">FOTOS &amp; VÍDEOS</span>
+        <strong>Registros da Intervenção</strong>
+        <small>Abordagens em Palmas - TO</small>
+      </a>
+    </div>
+
+    <div class="label">Escolha a cartilha</div>
+    <nav id="nav" aria-label="Cartilhas"></nav>
+    <div class="sidefoot">Projeto de Extensão • APIEX IV • 8º A de Direito. Orientação: Prof. Geraldo Alves Lima.</div>
+  </aside>
+
+  <main id="main">
+    <div class="bar">
+      <div>
+        <div class="kind">Projeto de Extensão • APIEX IV</div>
+        <h2>Registros da Intervenção em Campo</h2>
+      </div>
+      <div class="acts">
+        <a href="index.html">← Voltar às cartilhas</a>
+      </div>
+    </div>
+
+    <div class="content">
+      <section class="intro" aria-label="Sobre a intervenção">
+        <p>Registros das ações presenciais realizadas em Palmas - TO pelos discentes do curso de Direito (8º A • APIEX IV), com entrega de cartilhas impressas, diálogo e orientação jurídica diretamente com motoboys, entregadores e motoristas de aplicativo.</p>
+      </section>
+
+      <section aria-labelledby="fotos-titulo">
+        <div class="section-head">
+          <h3 id="fotos-titulo">Galeria de Fotos</h3>
+          <span>Clique em uma imagem para ampliar</span>
+        </div>
+        <div class="gallery" id="gallery"></div>
+      </section>
+
+      <section aria-labelledby="videos-titulo">
+        <div class="section-head">
+          <h3 id="videos-titulo">Registros em Vídeo</h3>
+          <span>2 vídeos da ação em campo</span>
+        </div>
+        <div class="videos">
+          <article class="video-card">
+            <video controls playsinline preload="metadata">
+              <source src="intervencao/intervencao-video-1.mp4" type="video/mp4">
+              Seu navegador não suporta a reprodução de vídeo.
+            </video>
+            <div class="video-meta">
+              <strong>Registro em vídeo 1</strong>
+              <span>Abordagem e entrega de cartilhas em campo</span>
+            </div>
+          </article>
+
+          <article class="video-card">
+            <video controls playsinline preload="metadata">
+              <source src="intervencao/intervencao-video-2.mp4" type="video/mp4">
+              Seu navegador não suporta a reprodução de vídeo.
+            </video>
+            <div class="video-meta">
+              <strong>Registro em vídeo 2</strong>
+              <span>Ação de orientação jurídica com trabalhadores</span>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <p class="note">Material informativo de extensão universitária, elaborado por discentes do curso de Direito (APIEX IV). Não substitui a orientação de um advogado ou defensor para o seu caso.</p>
+  </main>
+</div>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lb-title">
+  <div class="lightbox-inner">
+    <img id="lb-img" src="" alt="">
+    <div class="lightbox-bar">
+      <div class="lightbox-caption">
+        <strong id="lb-title"></strong>
+        <span id="lb-sub"></span>
+      </div>
+      <div class="lightbox-controls">
+        <button type="button" id="lb-prev" aria-label="Foto anterior">← Anterior</button>
+        <button type="button" id="lb-next" aria-label="Próxima foto">Próxima →</button>
+        <button type="button" id="lb-close" aria-label="Fechar ampliação">Fechar ✕</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const BOOKS = [
+  { key: 'motorista-de-app', file: 'Cartilha_Motorista_de_App_Palmas_Tocantins_UNINASSAU_v1', title: 'Motorista de app: a lei de Palmas e do Tocantins', kind: 'Motoristas de app', isNew: true },
+  { key: 'entregador', file: 'Cartilha_Beneficios_Entregadores_UNINASSAU_v1', title: 'Entregador: benefícios das plataformas', kind: 'Entregadores', isNew: true },
+  { key: 'motoboy-direitos', file: 'Cartilha_Estrada_Segura_UNINASSAU_v3', title: 'Motoboy, conheça os seus direitos', kind: 'Motoboys' },
+  { key: 'passo-a-passo', file: 'Cartilha_Passo_a_Passo_UNINASSAU_v3', title: 'Do acidente ao benefício: passo a passo', kind: 'Motoboys' },
+  { key: 'bate-papo', file: 'Cartilha_Bate_Papo_de_Esquina_UNINASSAU_v3', title: 'Bate-papo de esquina', kind: 'Motoboys • quadrinhos' },
+];
+
+const PHOTOS = [
+  {
+    src: 'intervencao/palmas-shopping-mcdonalds.jpg',
+    title: 'Palmas Shopping e McDonald\'s',
+    sub: 'Abordagem com motoboys'
+  },
+  {
+    src: 'intervencao/burger-king-bobs.jpg',
+    title: 'Burger King e Bob\'s',
+    sub: 'Abordagem com motoboys'
+  },
+  {
+    src: 'intervencao/capim-dourado-shopping.jpg',
+    title: 'Capim Dourado Shopping',
+    sub: 'Intervenção com motoboys • 14 de novembro de 2026'
+  },
+  {
+    src: 'intervencao/abordagem-ruas-app.jpg',
+    title: 'Abordagem nas ruas',
+    sub: 'Com motoristas de aplicativo'
+  }
+];
+
+const $ = id => document.getElementById(id);
+
+$('nav').innerHTML = BOOKS.map(b => `
+  <a href="index.html#${b.key}">
+    <img src="img/${b.file}.png" alt="" loading="lazy">
+    <span><strong>${b.title}</strong><small>${b.kind}${b.isNew ? ' <span class="new">NOVA</span>' : ''}</small></span>
+  </a>`).join('');
+
+$('gallery').innerHTML = PHOTOS.map((p, idx) => `
+  <figure class="photo-card">
+    <button type="button" class="photo-btn" data-idx="${idx}" aria-label="Ampliar foto: ${p.title}">
+      <img src="${p.src}" alt="${p.title} — ${p.sub}" loading="lazy">
+      <span class="zoom-pill">Ampliar</span>
+    </button>
+    <figcaption>
+      <strong>${p.title}</strong>
+      <span>${p.sub}</span>
+    </figcaption>
+  </figure>`).join('');
+
+let currentIdx = 0;
+
+function openLightbox(idx) {
+  currentIdx = (idx + PHOTOS.length) % PHOTOS.length;
+  const p = PHOTOS[currentIdx];
+  $('lb-img').src = p.src;
+  $('lb-img').alt = `${p.title} — ${p.sub}`;
+  $('lb-title').textContent = p.title;
+  $('lb-sub').textContent = p.sub;
+  $('lightbox').classList.add('open');
+}
+
+function closeLightbox() {
+  $('lightbox').classList.remove('open');
+}
+
+$('gallery').addEventListener('click', e => {
+  const btn = e.target.closest('.photo-btn');
+  if (!btn) return;
+  openLightbox(Number(btn.dataset.idx));
+});
+
+$('lb-prev').addEventListener('click', () => openLightbox(currentIdx - 1));
+$('lb-next').addEventListener('click', () => openLightbox(currentIdx + 1));
+$('lb-close').addEventListener('click', closeLightbox);
+
+$('lightbox').addEventListener('click', e => {
+  if (e.target === $('lightbox')) closeLightbox();
+});
+
+document.addEventListener('keydown', e => {
+  if (!$('lightbox').classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') openLightbox(currentIdx - 1);
+  if (e.key === 'ArrowRight') openLightbox(currentIdx + 1);
+});
+</script>
+</body>
+</html>
