@@ -247,9 +247,10 @@ main {
 
 .section-head {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
-  gap: 12px;
+  gap: 4px 12px;
   margin-bottom: 14px;
 }
 .section-head h3 {
@@ -266,7 +267,7 @@ main {
 /* ---------- photo gallery ---------- */
 .gallery {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
   gap: 18px;
 }
 
@@ -342,7 +343,7 @@ main {
 /* ---------- videos ---------- */
 .videos {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
   gap: 18px;
 }
 
@@ -357,7 +358,8 @@ main {
 }
 .video-card video {
   width: 100%;
-  aspect-ratio: 16 / 10;
+  height: auto;
+  max-height: 70dvh;
   background: #081426;
   display: block;
   object-fit: contain;
@@ -444,6 +446,16 @@ main {
 .lightbox-controls button:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; }
 
 /* ---------- responsive ---------- */
+@media (max-width: 1040px) {
+  .app {
+    grid-template-columns: 270px minmax(0, 1fr);
+  }
+  .bar, .content, .note {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
 @media (max-width: 860px) {
   body {
     overflow-y: auto;
@@ -462,9 +474,8 @@ main {
     border-right: 0;
     border-bottom: 4px solid var(--red);
     padding-right: max(0px, env(safe-area-inset-right, 0px));
-    position: sticky;
-    top: 0;
-    z-index: 30;
+    position: relative;
+    z-index: 15;
   }
   .brand {
     padding: 12px max(14px, env(safe-area-inset-left, 0px)) 8px;
@@ -531,8 +542,32 @@ main {
     padding-left: max(14px, env(safe-area-inset-left, 0px));
     padding-right: max(14px, env(safe-area-inset-right, 0px));
   }
+  .content {
+    padding-top: 16px;
+    gap: 22px;
+  }
   .gallery, .videos {
     grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .lightbox {
+    padding: 12px;
+  }
+  .lightbox-inner img {
+    max-height: calc(92dvh - 130px);
+  }
+  .lightbox-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .lightbox-controls {
+    width: 100%;
+  }
+  .lightbox-controls button {
+    flex: 1;
+    padding: 9px 8px;
+    font-size: 12.5px;
   }
 }
 
@@ -541,6 +576,12 @@ main {
   .logo b { font-size: 15px; }
   nav a { width: 185px; }
   .bar h2 { font-size: 13.5px; }
+  .action-link {
+    gap: 6px;
+    padding: 7px 10px;
+  }
+  .action-link strong { font-size: 12px; }
+  .action-badge { font-size: 8.5px; padding: 1px 6px; }
 }
 
 @media (prefers-reduced-motion: no-preference) {

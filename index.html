@@ -426,9 +426,8 @@ body.has-page-viewer .next {
     border-right: 0; 
     border-bottom: 4px solid var(--red); 
     padding-right: max(0px, env(safe-area-inset-right, 0px)); 
-    position: sticky;
-    top: 0;
-    z-index: 30;
+    position: relative;
+    z-index: 15;
   }
   
   .brand { 
@@ -562,6 +561,9 @@ body.has-page-viewer .next {
   .bar h2 { font-size: 13.5px; }
   .acts a { font-size: 11px; padding: 5px 8px; }
   .jump button { width: 28px; height: 28px; font-size: 11px; }
+  .action-link { gap: 6px; padding: 7px 10px; }
+  .action-link strong { font-size: 12px; }
+  .action-badge { font-size: 8.5px; padding: 1px 6px; }
 }
 
 @media (prefers-reduced-motion: no-preference) { 
