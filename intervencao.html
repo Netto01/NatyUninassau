@@ -356,6 +356,23 @@ main {
   display: flex;
   flex-direction: column;
 }
+.video-card.featured {
+  grid-column: 1 / -1;
+  border-top: 4px solid var(--red);
+}
+.video-badge {
+  display: inline-block;
+  align-self: flex-start;
+  background: var(--red);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 99px;
+  margin-bottom: 4px;
+}
 .video-card video {
   width: 100%;
   height: auto;
@@ -642,9 +659,21 @@ main {
       <section aria-labelledby="videos-titulo">
         <div class="section-head">
           <h3 id="videos-titulo">Registros em Vídeo</h3>
-          <span>2 vídeos da ação em campo</span>
+          <span>3 vídeos da ação em campo</span>
         </div>
         <div class="videos">
+          <article class="video-card featured">
+            <video controls playsinline preload="metadata">
+              <source src="intervencao/intervencao-video-principal.mp4" type="video/mp4">
+              Seu navegador não suporta a reprodução de vídeo.
+            </video>
+            <div class="video-meta">
+              <span class="video-badge">Vídeo principal</span>
+              <strong>Registro principal da intervenção</strong>
+              <span>Resumo da ação em campo e orientação jurídica em Palmas - TO</span>
+            </div>
+          </article>
+
           <article class="video-card">
             <video controls playsinline preload="metadata">
               <source src="intervencao/intervencao-video-1.mp4" type="video/mp4">
@@ -704,12 +733,7 @@ const PHOTOS = [
   {
     src: 'intervencao/palmas-shopping-mcdonalds.jpg',
     title: 'Palmas Shopping e McDonald\'s',
-    sub: 'Abordagem com motoboys'
-  },
-  {
-    src: 'intervencao/burger-king-bobs.jpg',
-    title: 'Burger King e Bob\'s',
-    sub: 'Abordagem com motoboys'
+    sub: 'Abordagem com motoboys • 18 de novembro de 2026'
   },
   {
     src: 'intervencao/capim-dourado-shopping.jpg',
@@ -719,7 +743,12 @@ const PHOTOS = [
   {
     src: 'intervencao/abordagem-ruas-app.jpg',
     title: 'Abordagem nas ruas',
-    sub: 'Com motoristas de aplicativo'
+    sub: 'Com motoristas de aplicativo • 08 de novembro de 2026'
+  },
+  {
+    src: 'intervencao/burger-king-bobs.jpg',
+    title: 'Burger King e Bob\'s',
+    sub: 'Abordagem com motoboys • 07 de novembro de 2026'
   }
 ];
 
