@@ -303,6 +303,7 @@ main {
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
+  object-position: center 20%;
   display: block;
   transition: transform .25s ease;
 }
@@ -648,6 +649,24 @@ main {
         <p>Registros das ações presenciais realizadas em Palmas - TO pelos discentes do curso de Direito (8º A • APIEX IV), com entrega de cartilhas impressas, diálogo e orientação jurídica diretamente com motoboys, entregadores e motoristas de aplicativo.</p>
       </section>
 
+      <section aria-labelledby="video-principal-titulo">
+        <div class="section-head">
+          <h3 id="video-principal-titulo">Vídeo Principal</h3>
+          <span>Resumo da intervenção em campo</span>
+        </div>
+        <article class="video-card featured">
+          <video controls playsinline preload="metadata">
+            <source src="intervencao/intervencao-video-principal.mp4" type="video/mp4">
+            Seu navegador não suporta a reprodução de vídeo.
+          </video>
+          <div class="video-meta">
+            <span class="video-badge">Vídeo principal</span>
+            <strong>Registro principal da intervenção</strong>
+            <span>Resumo da ação em campo e orientação jurídica em Palmas - TO</span>
+          </div>
+        </article>
+      </section>
+
       <section aria-labelledby="fotos-titulo">
         <div class="section-head">
           <h3 id="fotos-titulo">Galeria de Fotos</h3>
@@ -658,22 +677,10 @@ main {
 
       <section aria-labelledby="videos-titulo">
         <div class="section-head">
-          <h3 id="videos-titulo">Registros em Vídeo</h3>
-          <span>3 vídeos da ação em campo</span>
+          <h3 id="videos-titulo">Outros Registros em Vídeo</h3>
+          <span>2 vídeos da ação em campo</span>
         </div>
         <div class="videos">
-          <article class="video-card featured">
-            <video controls playsinline preload="metadata">
-              <source src="intervencao/intervencao-video-principal.mp4" type="video/mp4">
-              Seu navegador não suporta a reprodução de vídeo.
-            </video>
-            <div class="video-meta">
-              <span class="video-badge">Vídeo principal</span>
-              <strong>Registro principal da intervenção</strong>
-              <span>Resumo da ação em campo e orientação jurídica em Palmas - TO</span>
-            </div>
-          </article>
-
           <article class="video-card">
             <video controls playsinline preload="metadata">
               <source src="intervencao/intervencao-video-1.mp4" type="video/mp4">
@@ -749,6 +756,66 @@ const PHOTOS = [
     src: 'intervencao/burger-king-bobs.jpg',
     title: 'Burger King e Bob\'s',
     sub: 'Abordagem com motoboys • 07 de novembro de 2026'
+  },
+  {
+    src: 'intervencao/registro-01.jpg',
+    title: 'Equipe em campo',
+    sub: 'Distribuição de cartilhas no ponto de apoio'
+  },
+  {
+    src: 'intervencao/registro-02.jpg',
+    title: 'Entrega de cartilha',
+    sub: 'Bate-papo de esquina com motoboy'
+  },
+  {
+    src: 'intervencao/registro-03.jpg',
+    title: 'Orientação com entregador',
+    sub: 'Entrega da cartilha Bate-papo de esquina'
+  },
+  {
+    src: 'intervencao/registro-04.jpg',
+    title: 'Abordagem noturna',
+    sub: 'Entrega da cartilha Do acidente ao benefício'
+  },
+  {
+    src: 'intervencao/registro-05.jpg',
+    title: 'Drive-thru McDonald\'s',
+    sub: 'Registro de abordagem com entregador'
+  },
+  {
+    src: 'intervencao/registro-06.jpg',
+    title: 'Equipe nas ruas',
+    sub: 'Adesivos Trânsito Seguro e cartilhas'
+  },
+  {
+    src: 'intervencao/registro-07.jpg',
+    title: 'Abordagem no McDonald\'s',
+    sub: 'Entrega de cartilhas e kit informativo'
+  },
+  {
+    src: 'intervencao/registro-08.jpg',
+    title: 'Abordagem noturna',
+    sub: 'Entrega da cartilha Do acidente ao benefício'
+  },
+  {
+    src: 'intervencao/registro-09.jpg',
+    title: 'McDonald\'s',
+    sub: 'Entrega da cartilha Motoboy, conheça os seus direitos'
+  },
+  {
+    src: 'intervencao/registro-10.jpg',
+    title: 'McDonald\'s',
+    sub: 'Atendimento e orientação com entregador'
+  },
+  {
+    src: 'intervencao/registro-11.jpg',
+    title: 'Abordagem com motoboys',
+    sub: 'Entrega de cartilhas e lanches'
+  },
+  {
+    src: 'intervencao/registro-12.jpg',
+    title: 'McDonald\'s',
+    sub: 'Entrega da cartilha Entregador: benefícios das plataformas'
   }
 ];
 
